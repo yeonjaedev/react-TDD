@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState, useEffect} from "react";
 import "./App.css";
 
 function App() {
@@ -11,30 +11,16 @@ function App() {
     setNum(num - 1);
   };
   return (
-    <div className="App" style={{ textAlign: "center" }}>
+    <div className="App" style={{textAlign: "center"}}>
       <p data-testid="counter">{num}</p>
-      <button
-        data-testid="plus-button"
-        onClick={(_) => plusNum()}
-        disabled={disabled}
-        style={{ marginRight: 10 }}
-      >
-        {" "}
-        +{" "}
+      <button data-testid="plus-button" onClick={(_) => plusNum()} disabled={disabled} style={{marginRight: 10}}>
+        +
       </button>
-      <button
-        disabled={disabled}
-        data-testid="minus-button"
-        onClick={(_) => minusNum()}
-      >
+      <button disabled={disabled} data-testid="minus-button" onClick={(_) => minusNum()}>
         -
       </button>
       <div>
-        <button
-          data-testid="onoff-button"
-          onClick={(_) => setDisabled(!disabled)}
-          style={{ marginTop: 20, backgroundColor: "blue" }}
-        >
+        <button data-testid="onoff-button" onClick={(_) => setDisabled(!disabled)} style={{marginTop: 20, backgroundColor: "blue"}}>
           on/off
         </button>
       </div>

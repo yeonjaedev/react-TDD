@@ -1,2 +1,4 @@
-const CompletePage = () => {};
+const CompletePage = () => {
+    return <></>;
+};
 export default CompletePage;

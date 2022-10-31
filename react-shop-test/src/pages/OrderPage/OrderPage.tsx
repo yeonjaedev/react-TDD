@@ -1,2 +1,4 @@
-const OrderPage = () => {};
+const OrderPage = () => {
+    return <></>;
+};
 export default OrderPage;
