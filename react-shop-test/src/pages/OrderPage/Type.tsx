@@ -1,6 +1,7 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
 import ErrorBanner from "../../components/ErrorBanner";
+import Options from "./Options";
 import Products from "./Products";
 
 const Type = ({orderType}: any) => {
@@ -17,7 +18,7 @@ const Type = ({orderType}: any) => {
             setError(true);
         }
     };
-    const ItemComponents = Products;
+    const ItemComponents = orderType === "products" ? Products : Options;
 
     const optionItems = items.map(item => <ItemComponents key={item.name} name={item.name} imagePath={item.imagePath} />);
     if (error) {
