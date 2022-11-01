@@ -10,5 +10,5 @@ test("display product images form server", async () => {
     expect(productImages).toHaveLength(2);
 
     const altText = productImages.map(element => element.alt);
-    expect(altText).toEqual(["America Product", "England product"]);
+    expect(altText).toEqual(["America Product", "England Product"]);
 });

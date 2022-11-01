@@ -1,4 +1,10 @@
+import Type from "./Type";
+
 const OrderPage = () => {
-    return <></>;
+    return (
+        <>
+            <Type />
+        </>
+    );
 };
 export default OrderPage;
