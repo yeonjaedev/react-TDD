@@ -7,6 +7,7 @@ import Products from "./Products";
 const Type = ({orderType}: any) => {
     const [items, setItems] = useState<any[]>([]);
     const [error, setError] = useState<boolean>(false);
+    const [totalTypePrice, setTotalTypePrice] = useState<string>("0");
     useEffect(() => {
         loadItems();
     }, [orderType]);
@@ -26,8 +27,11 @@ const Type = ({orderType}: any) => {
     }
     return (
         <>
-            <h1>dfdfdfdfdfdfdf</h1>
-            {optionItems}
+            <h1>{orderType}</h1>
+            <h2>주문종류</h2>
+            <p>하나의 가격 : 1000</p>
+            <p>총 가격 :{totalTypePrice}</p>
+            <div style={orderType === "option" ? {display: "flex", flexDirection: "column"} : {display: "flex"}}>{optionItems}</div>
         </>
     );
 };
