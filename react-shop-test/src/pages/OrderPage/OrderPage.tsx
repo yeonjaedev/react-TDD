@@ -1,9 +1,11 @@
 import Type from "./Type";
-import {useRecoilState} from "recoil";
-import {totalPriceState} from "../../state/state";
+import {useRecoilState, useRecoilValue, useRecoilValueLoadable} from "recoil";
+import {totalPriceSelector, totalPriceState} from "../../state/state";
 const OrderPage = () => {
+    const total = useRecoilValue(totalPriceSelector);
+
     return (
-        <>
+        <div style={{padding: 20}}>
             <h1>Travel Products</h1>
             <div>
                 <Type orderType="products" />
@@ -13,11 +15,11 @@ const OrderPage = () => {
                     <Type orderType="options" />
                 </div>
                 <div>
-                    {/* <h1>Total Price : {totalPrice}</h1> */}
+                    <h1>Total Price : {total.totalPrice}</h1>
                     <button>주문</button>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 export default OrderPage;

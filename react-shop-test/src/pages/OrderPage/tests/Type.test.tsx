@@ -1,8 +1,9 @@
-import {render, screen} from "@testing-library/react";
+import {render, screen} from "../../../test.utils";
 import userEvent from "@testing-library/user-event";
 import {rest} from "msw";
 import {server} from "../../../mocks/server";
 import Type from "../Type";
+import {RecoilRoot} from "recoil";
 
 test("display product images form server", async () => {
     render(<Type orderType="products" />);

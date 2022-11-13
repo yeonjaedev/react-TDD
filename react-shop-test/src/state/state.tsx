@@ -7,44 +7,36 @@ export const orderState = atom({
         options: new Map(),
     },
 });
-
-export const totalPriceState = selector({
-    key: "totalPriceState", // unique ID (with respect to other atoms/selectors)
-    get: ({get}) => {
-        const order = get(orderState);
-        console.log(orderState);
-        const productsTotal = calculrator("products", order);
-        const optionsTotal = calculrator("options", order);
-        const total = productsTotal + optionsTotal;
-
-        return {products: productsTotal, options: optionsTotal, total: total};
-    },
+export const testAtom = atom({
+    key: "testAtom",
+    default: new Map(),
+});
+export const totalPriceState = atom({
+    key: "totalPriceState",
+    default: {products: 0, options: 0, total: 0},
 });
 
-const pricePerItem = {
+export const totalPriceSelector = selector({
+    key: "totalPriceSelector",
+    get: ({get}) => {
+        //let a = get(testAtom);
+        let orders = get(orderState);
+        let productsPrice = 0;
+        let optionsPrice = 0;
+        let totalPrice = 0;
+
+        orders["products"].forEach((value: number, key: string) => {
+            productsPrice += Number(value) * pricePerItem["products"];
+        });
+        orders["options"].forEach((value: number, key: string) => {
+            optionsPrice += Number(value) * pricePerItem["options"];
+        });
+        totalPrice = productsPrice + optionsPrice;
+        return {productsPrice: productsPrice, optionsPrice: optionsPrice, totalPrice: totalPrice};
+    },
+});
+export const pricePerItem = {
     products: 1000,
     options: 500,
 };
 export type orderType = "products" | "options";
-const calculrator = (orderType: orderType, orderCounts: any) => {
-    let total = 0;
-    orderCounts.forEach((element: any) => {
-        total += element[orderType].value();
-    });
-    return total * pricePerItem[orderType];
-};
-
-// const setOrderState = selector({
-//     key: 'setOrderState',
-//     get: ({get}) => get(orderState),
-//     set: ({set}, (orderType:any,itemName:string) =>{
-//         const newOrderCounts = {...orderState}
-//         const orderCountsMap = orderState[orderType]
-//         orderCountsMap.set(itemName,parseInt(newOrderCounts))
-//         set(
-//             orderState,
-//             {}
-//           )
-//     }
-
-//   });

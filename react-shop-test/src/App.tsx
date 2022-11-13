@@ -9,7 +9,7 @@ function App() {
         <RecoilRoot>
             <div className="App">
                 <OrderPage />
-                <SummaryPage />
+                {/* <SummaryPage /> */}
             </div>
         </RecoilRoot>
     );

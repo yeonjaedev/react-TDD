@@ -1,5 +1,6 @@
-import {render, screen} from "@testing-library/react";
+import {render, screen} from "../../../test.utils";
 import userEvent from "@testing-library/user-event";
+import {RecoilRoot} from "recoil";
 import Type from "../Type";
 
 test("여행 상품의 개수와 옵션에 따라 가격 계산해주기", async () => {

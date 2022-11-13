@@ -1,12 +1,16 @@
 import {useState} from "react";
+import {useRecoilValue} from "recoil";
+import {totalPriceSelector} from "../../state/state";
 
 const SummaryPage = () => {
     const [checked, setChecked] = useState<boolean>(false);
+    const total = useRecoilValue(totalPriceSelector);
     return (
         <div>
             <h1>주문확인</h1>
             <h2>{`Products:`}</h2>
             <h2>{`Options:`}</h2>
+            <h2>총가격:{total.totalPrice}</h2>
             <form>
                 <input
                     type="checkbox"
