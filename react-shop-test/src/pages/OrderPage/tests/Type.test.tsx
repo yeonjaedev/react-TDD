@@ -11,10 +11,10 @@ test("display product images form server", async () => {
     const productImages = (await screen.findAllByRole("img", {
         name: /product$/i, // product로 끝나는 대소문자 구분없는 문자열
     })) as HTMLImageElement[];
-    expect(productImages).toHaveLength(2);
+    expect(productImages).toHaveLength(4);
 
     const altText = productImages.map(element => element.alt);
-    expect(altText).toEqual(["America Product", "England Product"]);
+    expect(altText).toEqual(["America Product", "England Product", "Germany Product", "Portland Product"]);
 });
 
 test("when fetching product datas, face an error", async () => {
@@ -31,5 +31,5 @@ test("when fetching product datas, face an error", async () => {
 test("fetch option information from server", async () => {
     render(<Type orderType="options" />);
     const optionCheckboxes = await screen.findAllByRole("checkbox");
-    expect(optionCheckboxes).toHaveLength(2);
+    expect(optionCheckboxes).toHaveLength(3);
 });

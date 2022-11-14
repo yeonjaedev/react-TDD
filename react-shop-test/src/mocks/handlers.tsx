@@ -12,10 +12,18 @@ export const handlers = [
                     name: "England",
                     imagePath: "/images/england.jpeg",
                 },
+                {
+                    name: "Germany",
+                    imagePath: "/images/germany.jpeg",
+                },
+                {
+                    name: "Portland",
+                    imagePath: "/images/portland.jpeg",
+                },
             ])
         );
     }),
     rest.get("http://localhost:4000/options", (req, res, ctx) => {
-        return res(ctx.json([{name: "Insurance"}, {name: "Dinner"}]));
+        return res(ctx.json([{name: "Insurance"}, {name: "Dinner"}, {name: "FirstClass"}]));
     }),
 ];

@@ -15,7 +15,7 @@ const OrderPage = () => {
                     <Type orderType="options" />
                 </div>
                 <div>
-                    <h1>Total Price : {total.totalPrice}</h1>
+                    <h1>All Total Price: {total.totalPrice}</h1>
                     <button>주문</button>
                 </div>
             </div>

@@ -12,13 +12,16 @@ const Options = ({name}: OptionInterface) => {
             options: order.options.set(name, checked ? 1 : 0),
         });
     };
+
     return (
         <>
-            <form>
-                <input type="checkbox" id={`${name} option`} onChange={e => checkOption(e.target.checked)} />
-                {""}
-                <label htmlFor={`${name} option`}>{name}</label>
-            </form>
+            <div>
+                <form>
+                    <input type="checkbox" id={`${name} option`} onChange={e => checkOption(e.target.checked)} />
+                    {""}
+                    <label htmlFor={`${name} option`}>{name}</label>
+                </form>
+            </div>
         </>
     );
 };

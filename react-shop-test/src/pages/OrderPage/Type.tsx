@@ -19,7 +19,9 @@ const Type = ({orderType}: propsType) => {
     const loadItems = async () => {
         try {
             let response = await axios.get(`http://localhost:4000/${orderType}`);
-            setItems(response.data);
+            if (response) {
+                setItems(response.data);
+            }
         } catch (error) {
             setError(true);
         }
@@ -35,7 +37,7 @@ const Type = ({orderType}: propsType) => {
             <h1>{orderType}</h1>
             <h2>주문종류</h2>
             <p>하나의 가격 :{orderType === "products" ? "1000" : "500"}</p>
-            <p>총 가격 :{orderType === "products" ? total.productsPrice : total.optionsPrice}</p>
+            <p>총 가격:{orderType === "products" ? total.productsPrice : total.optionsPrice}</p>
             <div style={orderType === "option" ? {display: "flex", flexDirection: "column"} : {display: "flex"}}>{optionItems}</div>
         </>
     );
