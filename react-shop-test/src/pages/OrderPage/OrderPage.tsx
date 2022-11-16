@@ -1,7 +1,7 @@
 import Type from "./Type";
 import {useRecoilState, useRecoilValue, useRecoilValueLoadable} from "recoil";
 import {totalPriceSelector, totalPriceState} from "../../state/state";
-const OrderPage = () => {
+const OrderPage = (props:any) => {
     const total = useRecoilValue(totalPriceSelector);
 
     return (
@@ -16,7 +16,7 @@ const OrderPage = () => {
                 </div>
                 <div>
                     <h1>All Total Price: {total.totalPrice}</h1>
-                    <button>주문</button>
+                    <button onClick={()=>props.setStep(1)}>주문</button>
                 </div>
             </div>
         </div>

@@ -1,89 +1,94 @@
 import {render, screen} from "../../../test.utils";
 import userEvent from "@testing-library/user-event";
-import {RecoilRoot} from "recoil";
 import Type from "../Type";
 import OrderPage from "../OrderPage";
-// test("총 가격은 0으로 시작하고 하나의 상품 추가 시 총 가격 업데이트 됨", async () => {
-//     render(<OrderPage />);
-//     const totalPrice = screen.getByText("All Total Price : ", {exact: false});
-//     expect(totalPrice).toHaveTextContent("0");
 
-//     const AmericaInput = await screen.findByRole("spinbutton", {
-//         name: "America",
-//     });
-//     userEvent.clear(AmericaInput);
-//     userEvent.type(AmericaInput, "1");
-//     expect(totalPrice).toHaveTextContent("1000");
-// });
-// test("하나의 옵션 추가 시 총 가격 업데이트 됨", async () => {
-//     render(<OrderPage />);
-//     const totalPrice = screen.getByText("All Total Price : ", {exact: false});
-//     expect(totalPrice).toHaveTextContent("0");
-//     const DinnerInput = await screen.findByRole("checkbox", {
-//         name: "Dinner",
-//     });
-//     userEvent.clear(DinnerInput);
-//     userEvent.click(DinnerInput);
-//     expect(totalPrice).toHaveTextContent("500");
-// });
-// test("상품과 옵션 삭제 시 총 가격 계산하기", async () => {
-//     render(<OrderPage />);
-//     const totalPrice = screen.getByText("All Total Price : ", {exact: false});
-//     expect(totalPrice).toHaveTextContent("0");
-//     const InsuranceInput = await screen.findByRole("checkbox", {
-//         name: "Insurance",
-//     });
-//     userEvent.click(InsuranceInput);
-//     expect(totalPrice).toHaveTextContent("500");
+test("update product's total when products change", async () => {
+    render(<Type orderType="products" />);
 
-//     const AmericaInput = await screen.findByRole("spinbutton", {
-//         name: "America",
-//     });
-//     userEvent.clear(AmericaInput);
-//     userEvent.type(AmericaInput, "1");
-//     expect(totalPrice).toHaveTextContent("1500");
+    const productsTotal = screen.getByText("총 가격:", {exact: false});
+    expect(productsTotal).toHaveTextContent("0");
 
-//     // userEvent.clear(AmericaInput);
-//     // userEvent.type(AmericaInput, "1");
-//     // expect(totalPrice).toHaveTextContent("1500");
-// });
+    // 아메리카 여행 상품 한개 올리기
+    const americaInput = await screen.findByRole("spinbutton", {
+        name: "America",
+    });
+    userEvent.type(americaInput, "3");
 
-// test("여행 상품의 개수에 따라 가격 계산해주기", async () => {
-//     render(<Type orderType="products" />);
+    userEvent.type(americaInput, "2");
+    userEvent.clear(americaInput);
+    userEvent.clear(americaInput);
 
-//     // 총 가격 text가 처음에 0으로 시작하는지 확인
-//     const totalPriceText = screen.getByText("총 가격", {exact: false});
-//     expect(totalPriceText).toHaveTextContent("0");
+    userEvent.type(americaInput, "1");
 
-//     // america 여행상품 선택 시 가격 1000원 되는지 확인
-//     const americaInput = await screen.findByRole("spinbutton", {
-//         // 서버에서 여행정보 받은 후에 test할 수 있기 때문에 getByRole 대신 findByRole 사용
-//         name: "America",
-//     });
-//     userEvent.clear(americaInput);
-//     userEvent.type(americaInput, "1");
-//     expect(totalPriceText).toHaveTextContent("1000");
-// });
+    expect(productsTotal).toHaveTextContent("1000");
+});
 
-test("옵션 선택에 따라 가격 계산해주기", async () => {
+test("update option's total when options change", async () => {
     render(<Type orderType="options" />);
 
-    const optionsTotal = screen.getByText("총 가격", {exact: false});
+    const optionsTotal = screen.getByText("총 가격:", {exact: false});
     expect(optionsTotal).toHaveTextContent("0");
 
-    const insuranceInput = await screen.findByRole("checkbox", {
+    const insuranceCheckbox = await screen.findByRole("checkbox", {
         name: "Insurance",
     });
-    userEvent.clear(insuranceInput);
-    userEvent.click(insuranceInput);
+    userEvent.click(insuranceCheckbox);
     expect(optionsTotal).toHaveTextContent("500");
 
-    const DinnerInput = await screen.findByRole("checkbox", {
+    const dinnerCheckbox = await screen.findByRole("checkbox", {
         name: "Dinner",
     });
-    userEvent.click(DinnerInput);
+    userEvent.click(dinnerCheckbox);
     expect(optionsTotal).toHaveTextContent("1000");
 
-    userEvent.click(DinnerInput);
+    userEvent.click(dinnerCheckbox);
     expect(optionsTotal).toHaveTextContent("500");
+});
+
+describe("total price of goods and options", () => {
+    test("Updating total price when adding one option", async () => {
+        render(<OrderPage />);
+        const total = screen.getByText("Total Price:", {exact: false});
+
+        const insuranceCheckbox = await screen.findByRole("checkbox", {
+            name: "Insurance",
+        });
+        userEvent.click(insuranceCheckbox);
+        expect(total).toHaveTextContent("500");
+    });
+    test("total price starts with 0 and Updating total price when adding one product", async () => {
+        render(<OrderPage />);
+
+        const total = screen.getByText("Total Price:", {exact: false});
+        expect(total).toHaveTextContent("0");
+
+        const americaInput = await screen.findByRole("spinbutton", {
+            name: "America",
+        });
+        userEvent.clear(americaInput);
+        userEvent.type(americaInput, "1");
+
+        expect(total).toHaveTextContent("1500");
+    });
+    test("Updating total price when removing option and product", async () => {
+        render(<OrderPage />);
+        const total = screen.getByText("Total Price:", {exact: false});
+
+        const insuranceCheckbox = await screen.findByRole("checkbox", {
+            name: "Insurance",
+        });
+        userEvent.click(insuranceCheckbox);
+
+        const americaInput = await screen.findByRole("spinbutton", {
+            name: "America",
+        });
+        userEvent.clear(americaInput);
+        userEvent.type(americaInput, "3");
+
+        userEvent.clear(americaInput);
+        userEvent.type(americaInput, "1");
+
+        expect(total).toHaveTextContent("1500");
+    });
 });
