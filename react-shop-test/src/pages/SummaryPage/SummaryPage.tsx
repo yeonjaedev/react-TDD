@@ -29,10 +29,10 @@ const SummaryPage = (props: any) => {
         <div>
             <h1>주문확인</h1>
             <h2>{`여행 상품: ${total.productsPrice}`}</h2>
-            {productArr && productArr.map((t: string) => <p key={t}>{t}</p>)}
+            {productArr && productArr.map((product: string) => <p key={product}>{product}</p>)}
 
             <h2>{`옵션: ${total.optionsPrice}`}</h2>
-            {optionArr && optionArr.map((t: string) => <p key={t}>{t}</p>)}
+            {optionArr && optionArr.map((option: string) => <p key={option}>{option}</p>)}
             <h2>총 가격:{total.totalPrice}</h2>
             <form>
                 <input

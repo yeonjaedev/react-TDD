@@ -26,4 +26,9 @@ export const handlers = [
     rest.get("http://localhost:4000/options", (req, res, ctx) => {
         return res(ctx.json([{name: "Insurance"}, {name: "Dinner"}, {name: "FirstClass"}]));
     }),
+
+    rest.post("http://localhost:4000/order", (req, res, ctx) => {
+        let dummyData = [{orderNumber: 121312421, price: 2000}];
+        return res(ctx.json(dummyData));
+    }),
 ];

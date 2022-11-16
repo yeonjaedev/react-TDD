@@ -54,4 +54,22 @@ test("주문하기 버튼 클릭", async () => {
         name: "주문 확인",
     });
     userEvent.click(btn);
+
+    // 주문 완료 페이지
+    const loading = screen.getByText(/loading/i);
+    expect(loading).toBeInTheDocument();
+
+    const complete = await screen.findByRole("heading", {
+        // 비동기요청을 보낸 후 응답을 받고 보여지는 부분이기 때문에 findByRole 사용
+        name: "주문이 완료됐습니다.",
+    });
+    expect(complete).toBeInTheDocument();
+
+    const loadingDisappeared = screen.queryByText("loading");
+    expect(loadingDisappeared).not.toBeInTheDocument();
+
+    const firstBtn = screen.getByRole("button", {
+        name: "첫페이지로",
+    });
+    userEvent.click(firstBtn);
 });

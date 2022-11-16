@@ -69,7 +69,7 @@ describe("total price of goods and options", () => {
         userEvent.clear(americaInput);
         userEvent.type(americaInput, "1");
 
-        expect(total).toHaveTextContent("1500");
+        expect(total).toHaveTextContent("1000");
     });
     test("Updating total price when removing option and product", async () => {
         render(<OrderPage />);
