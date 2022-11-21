@@ -18,6 +18,7 @@ const Products = ({name, imagePath}: propsType) => {
     };
     return (
         <div style={{width: "25%", float: "left"}}>
+            <h1>MASTER BRANCH</h1>
             <p>{name}</p>
             <img style={{width: "75%"}} src={`http://localhost:4000/${imagePath}`} alt={`${name} Product`} />
             <form style={{marginTop: 10}}>
