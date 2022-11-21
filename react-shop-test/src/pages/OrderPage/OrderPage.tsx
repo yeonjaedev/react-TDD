@@ -15,6 +15,7 @@ const OrderPage = (props: any) => {
     return (
         <div style={{padding: 20}}>
             <h1>Travel Products</h1>
+            <h2>MASTER</h2>
             <div>
                 <Type orderType="products" />
             </div>
